@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACSCI-gurado | Thunderstorm Alert System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="storm-container">
+        <div id="lightning-layer" class="lightning-flash"></div>
+        <div id="rain-layer" class="rain"></div>
+    </div>
+
+    <header>
+        <div class="logo-area">
+            <h1>⚡ ACSCI-<span>gurado</span></h1>
+            <p class="subtitle">Angeles City Science High School Early Warning System</p>
+        </div>
+        <div class="header-info">
+            <div class="location-wrapper">
+                <span class="loc-icon">📍</span>
+                <select id="location-select" onchange="updateLocation(this.value)">
+                    <option value="Angeles City, Pampanga">Angeles City, Pampanga</option>
+                    <option value="City of San Fernando, Pampanga">San Fernando, Pampanga</option>
+                    <option value="Mabalacat City, Pampanga">Mabalacat City, Pampanga</option>
+                    <option value="Manila, Metro Manila">Manila, Metro Manila</option>
+                    <option value="Quezon City, Metro Manila">Quezon City, Metro Manila</option>
+                    <option value="Baguio City, Benguet">Baguio City, Benguet</option>
+                    <option value="Tagaytay City, Cavite">Tagaytay City, Cavite</option>
+                    <option value="Cebu City, Cebu">Cebu City, Cebu</option>
+                    <option value="Davao City, Davao del Sur">Davao City, Davao del Sur</option>
+                </select>
+            </div>
+            <div id="data-source">📡 Source: PAGASA (Simulated)</div>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <div class="controls">
+            <span class="control-label">Simulation Control:</span>
+            <button class="btn-control" onclick="setWeather('clear')">☀️ Normal</button>
+            <button class="btn-control btn-yellow" onclick="setWeather('yellow')">⚠️ Yellow Warning</button>
+            <button class="btn-control btn-orange" onclick="setWeather('orange')">🚨 Orange Warning</button>
+        </div>
+
+      <div class="dashboard">
+            
+            <div class="card span-full">
+                <div class="nav-header">
+                    <div class="nav-title">
+                        <span class="nav-icon">📍</span>
+                        <h2>Predictive Navigation</h2>
+                    </div>
+                    <span id="time-display">6:00 AM</span>
+                </div>
+
+                <p class="nav-subtitle" style="color: var(--text-sec); margin-top: 0;">
+                    Drag the slider to view predicted telemetry.
+                </p>
+                
+                <div class="timeline-container">
+                    <input type="range" id="time-slider" min="6" max="22" value="12" step="0.5" oninput="updateSimulation(this.value)">
+                    <div class="timeline-labels">
+                        <span>6 AM</span>
+                        <span>10 AM</span>
+                        <span>2 PM</span>
+                        <span>6 PM</span>
+                        <span>10 PM</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div>
+                    <h2>System Status</h2>
+                    <div id="status-badge" class="status-badge safe">
+                        🟢 NORMAL
+                    </div>
+                    <p id="status-desc" style="color: var(--text-sec);">No active weather hazards in Angeles City.</p>
+                </div>
+                
+                <div class="satellite-map">
+                    <div class="map-overlay" id="map-overlay"></div>
+                    <span class="map-label">🛰️ Live Satellite View (Angeles City)</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Live Telemetry</h2>
+                
+                <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center;">
+                    <div class="metric-row" style="margin-top: 15px; display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;">
+                        <span style="color: var(--text-sec);">💨 Wind Speed:</span>
+                        <span id="wind-speed" style="font-weight: bold; color: var(--primary);">12 km/h</span>
+                    </div>
+                    <div class="metric-row" style="margin-top: 10px; display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;">
+                        <span style="color: var(--text-sec);">🌧 Rainfall:</span>
+                        <span id="rainfall" style="font-weight: bold; color: var(--primary);">0 mm/h</span>
+                    </div>
+                    
+                    <div class="meter-container" style="margin-top: 20px;">
+                        <label style="font-size: 0.9rem; color: var(--text-sec);">⚡ Lightning Risk</label>
+                        <div class="meter-bar" style="margin-top: 5px;">
+                            <div id="lightning-meter" class="meter-fill"></div>
+                        </div>
+                        <div id="lightning-val" class="meter-value" style="text-align: right; font-size: 0.8rem; margin-top: 5px; color: var(--safe);">Low Risk</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card span-full">
+                <h2>📅 7-Day Forecast</h2>
+                <div class="forecast-grid" id="forecast-container">
+                    </div>
+            </div>
+
+        </div>
+
+    <div id="alert-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()" style="position: absolute; right: 20px; top: 15px; font-size: 1.5rem; cursor: pointer;">&times;</span>
+            <div class="alert-icon">⚠️</div>
+            <h2 id="modal-title">THUNDERSTORM ALERT</h2>
+            <p id="modal-message">Heavy rain detected. Seek shelter immediately.</p>
+            <button class="btn-acknowledge" onclick="closeModal()">I Acknowledge</button>
+        </div>
+    </div>
+
+    <audio id="sound-alert" src="https://assets.mixkit.co/sfx/preview/mixkit-software-interface-start-2574.mp3"></audio>
+    <audio id="sound-alarm" src="https://assets.mixkit.co/sfx/preview/mixkit-alarm-tone-996.mp3"></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>

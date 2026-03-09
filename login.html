@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | ACSCI-gurado Alert System</title>
+    <link rel="stylesheet" href="login.css">
+    
+    <style>
+        /* Utility class to hide forms */
+        .hidden { display: none !important; }
+
+        /* Styles for the Privacy Statement Box */
+        .legal-scroll-box {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid #444;
+            border-radius: 6px;
+            padding: 10px;
+            height: 120px; /* Fixed height to keep layout clean */
+            overflow-y: auto; /* Adds scrollbar for long text */
+            font-size: 0.75rem;
+            color: #ccc;
+            line-height: 1.4;
+            margin-bottom: 10px;
+            text-align: justify;
+        }
+
+        /* Custom Scrollbar Styling */
+        .legal-scroll-box::-webkit-scrollbar { width: 6px; }
+        .legal-scroll-box::-webkit-scrollbar-track { background: #2a2a3e; }
+        .legal-scroll-box::-webkit-scrollbar-thumb { background: #555; border-radius: 3px; }
+    </style>
+</head>
+<body>
+
+    <div id="storm-container"></div>
+
+    <div class="auth-container">
+        
+        <div class="auth-header">
+            <h1>⚡ ACSCI-<span>gurado</span></h1>
+            <p>Secure Community Portal</p>
+        </div>
+
+        <div class="auth-tabs">
+            <div class="auth-tab active" id="tab-login" onclick="switchTab('login')">Sign In</div>
+            <div class="auth-tab" id="tab-register" onclick="switchTab('register')">Register</div>
+        </div>
+
+        <form id="login-form" class="auth-form active" onsubmit="handleLogin(event)">
+            <div class="input-group">
+                <label>Email or Mobile Number</label>
+                <input type="text" name="phone" placeholder="Enter email or 09XX..." required>
+            </div>
+            <div class="input-group">
+                <label>Password</label>
+                <input type="password" name="password" placeholder="Enter password" required>
+            </div>
+            <button type="submit" class="btn-submit">Sign In</button>
+            <p style="text-align: center; font-size: 0.8rem; margin-top: 15px;">
+                <a href="#" style="color: var(--text-sec); text-decoration: none;">Forgot Password?</a>
+            </p>
+        </form>
+
+        <form id="register-form" class="auth-form" onsubmit="handleRegister(event)">
+            <div class="input-group">
+                <label>Full Name</label>
+                <input type="text" name="name" placeholder="Juan Dela Cruz" required>
+            </div>
+            
+            <div class="input-group">
+                <label>Role</label>
+                <select name="role" required style="width: 100%; padding: 12px; background: #2a2a3e; border: 1px solid #444; color: white; border-radius: 6px;">
+                    <option value="" disabled selected>Select Role</option>
+                    <option value="student">Student</option>
+                    <option value="teacher">Teacher</option>
+                    <option value="staff">Staff</option>
+                    <option value="admin">Admin</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label>Email Address (For Weather Alerts)</label>
+                <input type="email" name="email" placeholder="student@acsci.edu.ph" required>
+            </div>
+
+            <div class="input-group">
+                <label>Mobile Number (For SMS Alerts)</label>
+                <input type="tel" name="phone" placeholder="09XXXXXXXXX" required pattern="[0-9]{11}" title="Must be an 11-digit number">
+            </div>
+            
+            <div class="input-group">
+                <label>Password</label>
+                <input type="password" name="password" placeholder="Create password" required>
+            </div>
+
+            <div class="input-group" style="margin-top: 20px;">
+                <label style="color: #ffbb33; margin-bottom: 8px;">Data Privacy Consent</label>
+                
+                <div class="legal-scroll-box">
+                    <p style="margin: 0;">
+                        By registering on the Thunderstorm Alert Website System, you voluntarily provide your personal information, such as your name, email address, and other necessary details, for the purpose of creating your account and delivering thunderstorm alerts and related notifications. In compliance with the Data Privacy Act of 2012 (Republic Act No. 10173), all information collected will be used strictly for system functionality, safety notifications, and academic research purposes. Your data will be kept confidential, securely stored, and protected from unauthorized access, and it will not be shared, sold, or disclosed to third parties without your consent, unless required by law. Only authorized personnel will have access to your information, and your identity will remain protected. By registering, you confirm that the information you provide is accurate and that you give your consent for the collection and use of your data for the stated purposes.
+                    </p>
+                </div>
+
+                <div class="privacy-check">
+                    <input type="checkbox" id="reg-consent" required>
+                    <label for="reg-consent" style="cursor: pointer;">
+                        I have read and agree to the <strong>Data Privacy Statement</strong> above.
+                    </label>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-submit">Create Account</button>
+        </form>
+
+    </div>
+
+    <script src="login.js"></script>
+</body>
+</html>

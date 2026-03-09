@@ -1,0 +1,208 @@
+/* --- PINK & GRAY THEME: LOGIN --- */
+:root {
+    /* Main Theme Colors */
+    --primary: #ff4081;       
+    --primary-hover: #c60055; 
+    --accent-gray: #2d2d3a;   
+
+    /* Status Colors (Kept for alerts) */
+    --safe: #00C851;
+    --yellow: #ffbb33;
+    --orange: #ff8800;
+    --danger: #ff4444;
+
+    /* Backgrounds */
+    --dark-bg: #121212;       
+    --panel-bg: rgba(30, 30, 35, 0.95); 
+
+    /* Text */
+    --text-main: #ffffff;
+    --text-sec: #b0b0b0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--dark-bg);
+    color: var(--text-main);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* --- BACKGROUND ANIMATIONS (Gray Theme) --- */
+#storm-container {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: -1;
+    pointer-events: none; 
+    background: linear-gradient(to bottom, #1a1a1a, #2d2d2d, #3a2e32);
+}
+
+/* --- AUTH BOX LAYOUT --- */
+.auth-container {
+    background: var(--panel-bg);
+    width: 100%;
+    max-width: 400px;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 64, 129, 0.2);
+    backdrop-filter: blur(10px);
+    position: relative;
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.auth-header h1 {
+    margin: 0;
+    font-size: 2rem;
+    letter-spacing: 1px;
+    color: white;
+}
+
+/* The "gurado" text is now Pink */
+.auth-header h1 span {
+    color: var(--primary);
+}
+
+.auth-header p {
+    color: var(--text-sec);
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+
+/* --- TOGGLE TABS --- */
+.auth-tabs {
+    display: flex;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #333;
+}
+
+.auth-tab {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    cursor: pointer;
+    color: var(--text-sec);
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+/* Active Tab is now Pink */
+.auth-tab.active {
+    color: var(--primary);
+    border-bottom: 2px solid var(--primary);
+    margin-bottom: -2px;
+}
+
+/* --- FORMS --- */
+.auth-form {
+    display: none;
+    animation: fadeIn 0.4s ease;
+}
+
+.auth-form.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 0.85rem;
+    margin-bottom: 5px;
+    color: var(--text-sec);
+}
+
+/* Unified styling for all text inputs */
+.input-group input[type="text"],
+.input-group input[type="email"],
+.input-group input[type="password"],
+.input-group input[type="tel"],
+.input-group select {
+    width: 100%;
+    padding: 12px;
+    background: var(--accent-gray);
+    border: 1px solid #444;
+    color: white;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 1rem;
+    transition: border 0.3s;
+}
+
+.input-group input:focus,
+.input-group select:focus {
+    outline: none;
+    border-color: var(--primary); 
+}
+
+/* --- BUTTONS & EXTRAS --- */
+.btn-submit {
+    width: 100%;
+    padding: 12px;
+    background: var(--primary); 
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.1s;
+    margin-top: 10px;
+}
+
+.btn-submit:hover { 
+    background: var(--primary-hover); 
+}
+
+.btn-submit:active { 
+    transform: scale(0.98); 
+}
+
+/* Checkbox Section */
+.privacy-check {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin: 15px 0;
+    font-size: 0.8rem;
+    color: #ccc;
+    line-height: 1.4;
+}
+
+.privacy-check input[type="checkbox"] {
+    margin-top: 3px;
+    cursor: pointer;
+    min-width: 16px;
+    height: 16px;
+    accent-color: var(--primary); 
+}
+
+.privacy-check a {
+    color: var(--primary); 
+    text-decoration: none;
+}
+
+.privacy-check a:hover {
+    text-decoration: underline;
+}
+
+/* Background Fix for Clicks */
+#storm-container, #storm-container * {
+    pointer-events: none; 
+}
